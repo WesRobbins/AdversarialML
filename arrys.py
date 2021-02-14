@@ -143,8 +143,8 @@ class PersistentResults():
                     print('Empty')
             else:
                 incorr+=1
-                    if v == 2:
-                        print('Incorrect amount')
+                if v == 2:
+                    print('Incorrect amount')
 
         for key in arrys2d:
             print(f'{key}: ', end='')
