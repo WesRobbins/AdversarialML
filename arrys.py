@@ -1,38 +1,39 @@
 class PersistentResults():
+
     def __init(self):
-		# No Defense
-		self.mnist_fgsm = []
-		self.mnist_fgsm_box = []
-		self.cifar_fgsm = []
-		self.cifar_fgsm_box = []
-		self.fashion_fgsm = []
-		self.fashion_fgsm_box = []
+        # No Defense1
+        self.mnist_fgsm = []
+        self.mnist_fgsm_box = []
+        self.cifar_fgsm = []
+        self.cifar_fgsm_box = []
+        self.fashion_fgsm = []
+        self.fashion_fgsm_box = []
 
-		# Query Strength
-		self.fashion_graph = []
-		self.mnist_graph = []
-		self.cifar_graph = []
+        # Query Strength
+        self.fashion_graph = []
+        self.mnist_graph = []
+        self.cifar_graph = []
 
-		#### fasion ###
-		# fgsm vs adv-training
-		self.fgsm_acc = []
-		self.fgsm_acc_box = []
+        #### fasion ###
+        # fgsm vs adv-training
+        self.fgsm_acc = []
+        self.fgsm_acc_box = []
 
-		self.training_vs_fgsm = []
-		self.training_vs_fgsm_box = []
-		# fgsm vs adv-trainingR
-		self.trainingR_vs_fgsm = []
-		self.trainingR_vs_fgsm_box = []
+        self.training_vs_fgsm = []
+        self.training_vs_fgsm_box = []
+        # fgsm vs adv-trainingR
+        self.trainingR_vs_fgsm = []
+        self.trainingR_vs_fgsm_box = []
 
-		#fgsm2 vs adv-training
-		self.training_vs_fgsm2 = []
-		self.training_vs_fgsm2_box = []
+        #fgsm2 vs adv-training
+        self.training_vs_fgsm2 = []
+        self.training_vs_fgsm2_box = []
 
-		### mnist ###
-		self.mnist_fgsm_acc = []
-		self.mnist_training_vs_fgsm = []
-		self.mnist_fgsm_acc_box = []
-		self.mnist_training_vs_fgsm_box = []
+        ### mnist ###
+        self.mnist_fgsm_acc = []
+        self.mnist_training_vs_fgsm = []
+        self.mnist_fgsm_acc_box = []
+        self.mnist_training_vs_fgsm_box = []
 
 		### cifar ###
 		self.cifar_fgsm_acc = []
@@ -59,6 +60,7 @@ class PersistentResults():
     		'mnist_graph': mnist_graph,
     		'cifar_graphs': cifar_graph
 		}
+
 
     def write_all(self, typein=True):
         with open('results', 'w+') as csvfile:
