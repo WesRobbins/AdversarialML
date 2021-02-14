@@ -161,8 +161,8 @@ class PersistentResults():
                             print('Correct')
                 elif not unempty:
                         empty+=1
-                            if v == 2:
-                                print('Empty')
+                        if v == 2:
+                            print('Empty')
                 else:
                     incorr+=1
                     if v == 2:
