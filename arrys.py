@@ -1,73 +1,133 @@
 class PersistentResults():
+    # No Defense1
+    mnist_fgsm = []
+    mnist_fgsm_box = []
+    cifar_fgsm = []
+    cifar_fgsm_box = []
+    fashion_fgsm = []
+    fashion_fgsm_box = []
+
+    # Query Strength
+    fashion_graph = []
+    mnist_graph = []
+    cifar_graph = []
+
+    #### fasion ###
+    # fgsm vs adv-training
+    fgsm_acc = []
+    fgsm_acc_box = []
+
+    training_vs_fgsm = []
+    training_vs_fgsm_box = []
+    # fgsm vs adv-trainingR
+    trainingR_vs_fgsm = []
+    trainingR_vs_fgsm_box = []
+
+    #fgsm2 vs adv-training
+    training_vs_fgsm2 = []
+    training_vs_fgsm2_box = []
+
+    ### mnist ###
+    mnist_fgsm_acc = []
+    mnist_training_vs_fgsm = []
+    mnist_fgsm_acc_box = []
+    mnist_training_vs_fgsm_box = []
+
+    ### cifar ###
+    cifar_fgsm_acc = []
+    cifar_training_vs_fgsm = []
+    cifar_fgsm_acc_box = []
+    cifar_training_vs_fgsm_box = []
+
+    arrys = {'mnist_fgsm': mnist_fgsm,
+        'mnist_fgsm_box': mnist_fgsm_box,
+        'cifar_fgsm': cifar_fgsm,
+        'cifar_fgsm_box':cifar_fgsm,
+        'fashion_fgsm': fashion_fgsm,
+        'fashion_fgsm_box': fashion_fgsm_box,
+        'fgsm_acc': fgsm_acc,
+        'fgsm_acc_box': fgsm_acc_box,
+        'training_vs_fgsm': training_vs_fgsm,
+        'training_vs_fgsm_box': training_vs_fgsm_box,
+        'trainingR_vs_fgsm': training_vs_fgsm_box,
+        'training_vs_fgsm2': training_vs_fgsm2,
+        'training_vs_fgsm2_box': training_vs_fgsm2_box
+    }
+
+    arrys2d = {'fashion_graph': fashion_graph,
+        'mnist_graph': mnist_graph,
+        'cifar_graphs': cifar_graph
+    }
 
     def __init(self):
-        # No Defense1
-        self.mnist_fgsm = []
-        self.mnist_fgsm_box = []
-        self.cifar_fgsm = []
-        self.cifar_fgsm_box = []
-        self.fashion_fgsm = []
-        self.fashion_fgsm_box = []
-
-        # Query Strength
-        self.fashion_graph = []
-        self.mnist_graph = []
-        self.cifar_graph = []
-
-        #### fasion ###
-        # fgsm vs adv-training
-        self.fgsm_acc = []
-        self.fgsm_acc_box = []
-
-        self.training_vs_fgsm = []
-        self.training_vs_fgsm_box = []
-        # fgsm vs adv-trainingR
-        self.trainingR_vs_fgsm = []
-        self.trainingR_vs_fgsm_box = []
-
-        #fgsm2 vs adv-training
-        self.training_vs_fgsm2 = []
-        self.training_vs_fgsm2_box = []
-
-        ### mnist ###
-        self.mnist_fgsm_acc = []
-        self.mnist_training_vs_fgsm = []
-        self.mnist_fgsm_acc_box = []
-        self.mnist_training_vs_fgsm_box = []
-
-        ### cifar ###
-        self.cifar_fgsm_acc = []
-        self.cifar_training_vs_fgsm = []
-        self.cifar_fgsm_acc_box = []
-        self.cifar_training_vs_fgsm_box = []
-
-        self.arrys = {'mnist_fgsm': self.mnist_fgsm,
-            'mnist_fgsm_box': self.mnist_fgsm_box,
-            'cifar_fgsm': self.cifar_fgsm,
-            'cifar_fgsm_box':self.cifar_fgsm,
-            'fashion_fgsm': self.fashion_fgsm,
-            'fashion_fgsm_box': self.fashion_fgsm_box,
-            'fgsm_acc': self.fgsm_acc,
-            'fgsm_acc_box': self.fgsm_acc_box,
-            'training_vs_fgsm': self.training_vs_fgsm,
-            'training_vs_fgsm_box': self.training_vs_fgsm_box,
-            'trainingR_vs_fgsm': self.training_vs_fgsm_box,
-            'training_vs_fgsm2': self.training_vs_fgsm2,
-            'training_vs_fgsm2_box': self.training_vs_fgsm2_box
-        }
-
-        self.arrys2d = {'fashion_graph': self.fashion_graph,
-            'mnist_graph': self.mnist_graph,
-            'cifar_graphs': self.cifar_graph
-        }
+        pass
+        # # No Defense1
+        # mnist_fgsm = []
+        # mnist_fgsm_box = []
+        # cifar_fgsm = []
+        # cifar_fgsm_box = []
+        # fashion_fgsm = []
+        # fashion_fgsm_box = []
+        #
+        # # Query Strength
+        # fashion_graph = []
+        # mnist_graph = []
+        # cifar_graph = []
+        #
+        # #### fasion ###
+        # # fgsm vs adv-training
+        # fgsm_acc = []
+        # fgsm_acc_box = []
+        #
+        # training_vs_fgsm = []
+        # training_vs_fgsm_box = []
+        # # fgsm vs adv-trainingR
+        # trainingR_vs_fgsm = []
+        # trainingR_vs_fgsm_box = []
+        #
+        # #fgsm2 vs adv-training
+        # training_vs_fgsm2 = []
+        # training_vs_fgsm2_box = []
+        #
+        # ### mnist ###
+        # mnist_fgsm_acc = []
+        # mnist_training_vs_fgsm = []
+        # mnist_fgsm_acc_box = []
+        # mnist_training_vs_fgsm_box = []
+        #
+        # ### cifar ###
+        # cifar_fgsm_acc = []
+        # cifar_training_vs_fgsm = []
+        # cifar_fgsm_acc_box = []
+        # cifar_training_vs_fgsm_box = []
+        #
+        # arrys = {'mnist_fgsm': mnist_fgsm,
+        #     'mnist_fgsm_box': mnist_fgsm_box,
+        #     'cifar_fgsm': cifar_fgsm,
+        #     'cifar_fgsm_box':cifar_fgsm,
+        #     'fashion_fgsm': fashion_fgsm,
+        #     'fashion_fgsm_box': fashion_fgsm_box,
+        #     'fgsm_acc': fgsm_acc,
+        #     'fgsm_acc_box': fgsm_acc_box,
+        #     'training_vs_fgsm': training_vs_fgsm,
+        #     'training_vs_fgsm_box': training_vs_fgsm_box,
+        #     'trainingR_vs_fgsm': training_vs_fgsm_box,
+        #     'training_vs_fgsm2': training_vs_fgsm2,
+        #     'training_vs_fgsm2_box': training_vs_fgsm2_box
+        # }
+        #
+        # arrys2d = {'fashion_graph': fashion_graph,
+        #     'mnist_graph': mnist_graph,
+        #     'cifar_graphs': cifar_graph
+        # }
 
 
     def write_all(self, typein=True):
         with open('results', 'w+') as csvfile:
             if typein == 1 or typwin==True:
                 writer = csv.writer(csvfile)
-                for key in self.arrys:
-                    line = self.arrys[key].copy()
+                for key in arrys:
+                    line = arrys[key].copy()
                     try:
                         if len(line) == len(epsilon):
                             line.insert(0, key)
@@ -78,11 +138,11 @@ class PersistentResults():
                     except:
                         print(f'ERR: no {key}')
         if typein == 2 or typein == True:
-            for key in self.arrys:
-                len_dict = str(len(self.arrys[key]))
+            for key in arrys:
+                len_dict = str(len(arrys[key]))
                 null_li = ['null']*(len(epsilon)-2)
                 writer.writerow([key, len_dict]+null_li)
-                for j, eps in zip(self.arrys[key], epsilon):
+                for j, eps in zip(arrys[key], epsilon):
                     row_name = key+"_"+str(eps)
                     try:
                         if len(j) == len(epsilon):
@@ -100,16 +160,16 @@ class PersistentResults():
                 for row in csv_reader:
                     name = row.pop(0)
                     elems = [float(i) for i in row]
-                    for key in self.arrys:
+                    for key in arrys:
                         if key == name:
-                            if len(self.arrys[key]) == 0:
-                                self.arrys[key].extend(elems)
+                            if len(arrys[key]) == 0:
+                                arrys[key].extend(elems)
                                 print(f'{key} populated')
 
         if typein == 2 or typein == True:
             with open('results', 'r') as filein:
                 csv_reader = csv.reader(filein, delimiter=',')
-                for key in self.arrys2d:
+                for key in arrys2d:
                     loop_on = False
                     count = 0
                     num = 0
@@ -119,7 +179,7 @@ class PersistentResults():
                         elems = [float(i) for i in row]
                         if loop_on:
                             count+=1
-                            self.arrys2d[key].append(elems)
+                            arrys2d[key].append(elems)
                             if count >= num:
                                 loop_on = False
                                 break
@@ -128,17 +188,17 @@ class PersistentResults():
                                     num = int(elems[0])
 
     def show_arrys(self, v=2):
-        print(self.arrys)
+        print(arrys)
         corr = 0
         empty = 0
         incorr = 0
-        for key in self.arrys:
+        for key in arrys:
             print(f'{key}:', end=' ')
-            if len(self.arrys[key]) == len(epsilon):
+            if len(arrys[key]) == len(epsilon):
                 corr +=1
                 if v == 2:
                     print('Correct')
-            elif len(self.arrys[key]) == 0:
+            elif len(arrys[key]) == 0:
                 empty +=1
                 if v == 2:
                     print('Empty')
@@ -147,11 +207,11 @@ class PersistentResults():
                 if v == 2:
                     print('Incorrect amount')
 
-        for key in self.arrys2d:
+        for key in arrys2d:
             print(f'{key}: ', end='')
             correct = True
             unempty = False
-            for i in self.arrys2d[key]:
+            for i in arrys2d[key]:
                 if len(i) != 0:
                     unempty = True
                 elif len(i) != len(epsilon):
@@ -188,7 +248,7 @@ class PersistentResults():
 
     def add(key, typin):
         if typein == 1:
-            new_li = [key] + [str(r) for r in self.arrys[key]]
+            new_li = [key] + [str(r) for r in arrys[key]]
             with open('new_file', 'a') as output_file:
                 writer = csv.writer(csvfile)
                 writer.writerow(new_li)
