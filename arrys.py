@@ -41,7 +41,7 @@ class PersistentResults():
         self.cifar_fgsm_acc_box = []
         self.cifar_training_vs_fgsm_box = []
 
-        self.arrys = {'mnist_fgsm': mnist_fgsm,
+        self.self.arrys = {'mnist_fgsm': mnist_fgsm,
             'mnist_fgsm_box': mnist_fgsm_box,
             'cifar_fgsm': cifar_fgsm,
             'cifar_fgsm_box': cifar_fgsm,
@@ -56,7 +56,7 @@ class PersistentResults():
             'training_vs_fgsm2_box': training_vs_fgsm2_box
         }
 
-        self.arrys2d = {'fashion_graph': fashion_graph,
+        self.self.arrys2d = {'fashion_graph': fashion_graph,
             'mnist_graph': mnist_graph,
             'cifar_graphs': cifar_graph
         }
@@ -66,8 +66,8 @@ class PersistentResults():
         with open('results', 'w+') as csvfile:
             if typein == 1 or typwin==True:
                 writer = csv.writer(csvfile)
-                for key in self.arrys:
-                    line = self.arrys[key].copy()
+                for key in self.self.arrys:
+                    line = self.self.arrys[key].copy()
                     try:
                         if len(line) == len(epsilon):
                             line.insert(0, key)
@@ -78,11 +78,11 @@ class PersistentResults():
                     except:
                         print(f'ERR: no {key}')
         if typein == 2 or typein == True:
-            for key in self.arrys:
-                len_dict = str(len(self.arrys[key]))
+            for key in self.self.arrys:
+                len_dict = str(len(self.self.arrys[key]))
                 null_li = ['null']*(len(epsilon)-2)
                 writer.writerow([key, len_dict]+null_li)
-                for j, eps in zip(self.arrys[key], epsilon):
+                for j, eps in zip(self.self.arrys[key], epsilon):
                     row_name = key+"_"+str(eps)
                     try:
                         if len(j) == len(epsilon):
@@ -100,16 +100,16 @@ class PersistentResults():
                 for row in csv_reader:
                     name = row.pop(0)
                     elems = [float(i) for i in row]
-                    for key in arrys:
+                    for key in self.arrys:
                         if key == name:
-                            if len(arrys[key]) == 0:
-                                arrys[key].extend(elems)
+                            if len(self.arrys[key]) == 0:
+                                self.arrys[key].extend(elems)
                                 print(f'{key} populated')
 
         if typein == 2 or typein == True:
             with open('results', 'r') as filein:
                 csv_reader = csv.reader(filein, delimiter=',')
-                for key in arrys2d:
+                for key in self.arrys2d:
                     loop_on = False
                     count = 0
                     num = 0
@@ -119,7 +119,7 @@ class PersistentResults():
                         elems = [float(i) for i in row]
                         if loop_on:
                             count+=1
-                            arrys2d[key].append(elems)
+                            self.arrys2d[key].append(elems)
                             if count >= num:
                                 loop_on = False
                                 break
@@ -131,13 +131,13 @@ class PersistentResults():
         corr = 0
         empty = 0
         incorr = 0
-        for key in arrys:
+        for key in self.self.arrys:
             print(f'{key}:', end=' ')
-            if len(arrys[key]) == len(epsilon):
+            if len(self.arrys[key]) == len(epsilon):
                 corr +=1
                 if v == 2:
                     print('Correct')
-            elif len(arrys[key]) == 0:
+            elif len(self.arrys[key]) == 0:
                 empty +=1
                 if v == 2:
                     print('Empty')
@@ -146,11 +146,11 @@ class PersistentResults():
                 if v == 2:
                     print('Incorrect amount')
 
-        for key in arrys2d:
+        for key in self.arrys2d:
             print(f'{key}: ', end='')
             correct = True
             unempty = False
-            for i in arrys2d[key]:
+            for i in self.arrys2d[key]:
                 if len(i) != 0:
                     unempty = True
                 elif len(i) != len(epsilon):
@@ -187,7 +187,7 @@ class PersistentResults():
 
     def add(key, typin):
         if typein == 1:
-            new_li = [key] + [str(r) for r in arrys[key]]
+            new_li = [key] + [str(r) for r in self.arrys[key]]
             with open('new_file', 'a') as output_file:
                 writer = csv.writer(csvfile)
                 writer.writerow(new_li)
