@@ -1,5 +1,5 @@
 class PersistentResults():
-	def __init(self):
+    def __init(self):
 		# No Defense
 		self.mnist_fgsm = []
 		self.mnist_fgsm_box = []
@@ -78,7 +78,8 @@ class PersistentResults():
             if typein == 2 or typein == True:
                 for key in self.arrys:
                     len_dict = str(len(self.arrys[key]))
-                    writer.writerow([key, len_dict])
+                    null_li = ['null']*(len(epsilon)-2)
+                    writer.writerow([key, len_dict]+null_li)
                     for j, eps in zip(self.arrys[key], epsilon):
                         row_name = key+"_"+str(eps)
                         try:
