@@ -128,9 +128,9 @@ class PersistentResults():
                                     num = int(elems[0])
 
     def show_arrys(self, v=2):
-        int corr = 0
-        int empty = 0
-        int incorr = 0
+        corr = 0
+        empty = 0
+        incorr = 0
         for key in arrys:
             print(f'{key}:', end=' ')
             if len(arrys[key]) == len(epsilon):
