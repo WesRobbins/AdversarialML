@@ -39,7 +39,7 @@ class PersistentResults():
     cifar_fgsm_acc_box = []
     cifar_training_vs_fgsm_box = []
 
-    self.arrys = {'mnist_fgsm': mnist_fgsm,
+    arrys = {'mnist_fgsm': mnist_fgsm,
         'mnist_fgsm_box': mnist_fgsm_box,
         'cifar_fgsm': cifar_fgsm,
         'cifar_fgsm_box':cifar_fgsm,
@@ -54,7 +54,7 @@ class PersistentResults():
         'training_vs_fgsm2_box': training_vs_fgsm2_box
     }
 
-    self.arrys2d = {'fashion_graph': fashion_graph,
+    arrys2d = {'fashion_graph': fashion_graph,
         'mnist_graph': mnist_graph,
         'cifar_graphs': cifar_graph
     }
