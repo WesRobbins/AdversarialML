@@ -256,7 +256,7 @@ class PersistentResults():
                 writer.writerow(new_li)
 
     def update_arr(self):
-        self.arrys {'mnist_fgsm': mnist_fgsm,
+        self.arrys = {'mnist_fgsm': mnist_fgsm,
         'mnist_fgsm_box': mnist_fgsm_box,
         'cifar_fgsm': cifar_fgsm,
         'cifar_fgsm_box':cifar_fgsm,
