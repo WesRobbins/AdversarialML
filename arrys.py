@@ -166,7 +166,10 @@ class PersistentResults():
                 else:
                     incorr+=1
                     if v == 2:
+                        print('Incorrect amount')
 
+                if verbose == 2:
+                    print()
                 print(f'Correct: {incorr}')
                 print(f'Empty: {empty}')
                 print(f'Incorrect amount: {incorr}')
