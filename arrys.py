@@ -1,5 +1,6 @@
 class PersistentResults():
-    # No Defense1
+    epsilon = [.001,.005, .01, .03, .05, .07, .1]
+    # No Defense
     mnist_fgsm = []
     mnist_fgsm_box = []
     cifar_fgsm = []
@@ -129,7 +130,7 @@ class PersistentResults():
                 for key in self.arrys:
                     line = self.arrys[key].copy()
                     try:
-                        if len(line) == len(epsilon):
+                        if len(line) == len(self.epsilon):
                             line.insert(0, key)
                             writer.writerow([str(r) for r in line])
                             print(f'{key} was written')
@@ -140,12 +141,12 @@ class PersistentResults():
         if typein == 2 or typein == True:
             for key in self.arrys:
                 len_dict = str(len(self.arrys[key]))
-                null_li = ['null']*(len(epsilon)-2)
+                null_li = ['null']*(len(self.epsilon)-2)
                 writer.writerow([key, len_dict]+null_li)
-                for j, eps in zip(self.arrys[key], epsilon):
+                for j, eps in zip(self.arrys[key], self.epsilon):
                     row_name = key+"_"+str(eps)
                     try:
-                        if len(j) == len(epsilon):
+                        if len(j) == len(self.epsilon):
                             writer.writerow([row_name] + [str(r) for r in j])
                             print(f'{row_name} was written')
                         else:
@@ -186,6 +187,7 @@ class PersistentResults():
                                 if name == key:
                                     loop_on = True
                                     num = int(elems[0])
+        self._update_arrs()
 
     def show_arrys(self, v=2):
         print(self.arrys)
@@ -194,7 +196,7 @@ class PersistentResults():
         incorr = 0
         for key in self.arrys:
             print(f'{key}:', end=' ')
-            if len(self.arrys[key]) == len(epsilon):
+            if len(self.arrys[key]) == len(self.epsilon):
                 corr +=1
                 if v == 2:
                     print('Correct')
@@ -214,7 +216,7 @@ class PersistentResults():
             for i in self.arrys2d[key]:
                 if len(i) != 0:
                     unempty = True
-                elif len(i) != len(epsilon):
+                elif len(i) != len(self.epsilon):
                     correct = False
                     if correct:
                         corr+=1
@@ -235,7 +237,7 @@ class PersistentResults():
                 print(f'Empty: {empty}')
                 print(f'Incorrect amount: {incorr}')
 
-    def replace(key):
+    def replace(self,key):
         new_li = [key] + [str(i) for i in arry[key]]
         with open('results', 'r') as input_file, open('new_file', 'w') as output_file:
             for line in input_file:
@@ -246,9 +248,25 @@ class PersistentResults():
 
         os.rename('new_file.csv', 'results.csv')
 
-    def add(key, typin):
+    def add(self,key, typin):
         if typein == 1:
             new_li = [key] + [str(r) for r in self.arrys[key]]
             with open('new_file', 'a') as output_file:
                 writer = csv.writer(csvfile)
                 writer.writerow(new_li)
+
+    def update_arr(self):
+        self.arrys {'mnist_fgsm': mnist_fgsm,
+        'mnist_fgsm_box': mnist_fgsm_box,
+        'cifar_fgsm': cifar_fgsm,
+        'cifar_fgsm_box':cifar_fgsm,
+        'fashion_fgsm': fashion_fgsm,
+        'fashion_fgsm_box': fashion_fgsm_box,
+        'fgsm_acc': fgsm_acc,
+        'fgsm_acc_box': fgsm_acc_box,
+        'training_vs_fgsm': training_vs_fgsm,
+        'training_vs_fgsm_box': training_vs_fgsm_box,
+        'trainingR_vs_fgsm': training_vs_fgsm_box,
+        'training_vs_fgsm2': training_vs_fgsm2,
+        'training_vs_fgsm2_box': training_vs_fgsm2_box
+    }
