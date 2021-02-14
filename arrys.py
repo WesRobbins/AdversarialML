@@ -1,4 +1,4 @@
-': self.class PersistentResults():
+class PersistentResults():
 
     def __init(self):
         # No Defense1
@@ -128,6 +128,7 @@
                                     num = int(elems[0])
 
     def show_arrys(self, v=2):
+        print(self.arrys)
         corr = 0
         empty = 0
         incorr = 0
