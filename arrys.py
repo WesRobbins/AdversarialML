@@ -35,30 +35,30 @@ class PersistentResults():
         self.mnist_fgsm_acc_box = []
         self.mnist_training_vs_fgsm_box = []
 
-		### cifar ###
-		self.cifar_fgsm_acc = []
-		self.cifar_training_vs_fgsm = []
-		self.cifar_fgsm_acc_box = []
-		self.cifar_training_vs_fgsm_box = []
+        ### cifar ###
+        self.cifar_fgsm_acc = []
+        self.cifar_training_vs_fgsm = []
+        self.cifar_fgsm_acc_box = []
+        self.cifar_training_vs_fgsm_box = []
 
         self.arrys = {'mnist_fgsm': mnist_fgsm,
-        	'mnist_fgsm_box': mnist_fgsm_box,
-        	'cifar_fgsm': cifar_fgsm,
-        	'cifar_fgsm_box': cifar_fgsm,
-        	'fashion_fgsm': fashion_fgsm,
-        	'fashion_fgsm_box': fashion_fgsm_box,
-        	'fgsm_acc': fgsm_acc,
-        	'fgsm_acc_box': fgsm_acc_box,
-        	'training_vs_fgsm': training_vs_fgsm,
-        	'training_vs_fgsm_box': training_vs_fgsm_box,
-        	'trainingR_vs_fgsm': training_vs_fgsm_box,
-        	'training_vs_fgsm2': training_vs_fgsm2,
-        	'training_vs_fgsm2_box': training_vs_fgsm2_box
+            'mnist_fgsm_box': mnist_fgsm_box,
+            'cifar_fgsm': cifar_fgsm,
+            'cifar_fgsm_box': cifar_fgsm,
+            'fashion_fgsm': fashion_fgsm,
+            'fashion_fgsm_box': fashion_fgsm_box,
+            'fgsm_acc': fgsm_acc,
+            'fgsm_acc_box': fgsm_acc_box,
+            'training_vs_fgsm': training_vs_fgsm,
+            'training_vs_fgsm_box': training_vs_fgsm_box,
+            'trainingR_vs_fgsm': training_vs_fgsm_box,
+            'training_vs_fgsm2': training_vs_fgsm2,
+            'training_vs_fgsm2_box': training_vs_fgsm2_box
         }
 
         self.arrys2d = {'fashion_graph': fashion_graph,
-        	'mnist_graph': mnist_graph,
-        	'cifar_graphs': cifar_graph
+            'mnist_graph': mnist_graph,
+            'cifar_graphs': cifar_graph
         }
 
 
