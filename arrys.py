@@ -41,7 +41,7 @@ class PersistentResults():
         self.cifar_fgsm_acc_box = []
         self.cifar_training_vs_fgsm_box = []
 
-        self.self.arrys = {'mnist_fgsm': mnist_fgsm,
+        self.arrys = {'mnist_fgsm': mnist_fgsm,
             'mnist_fgsm_box': mnist_fgsm_box,
             'cifar_fgsm': cifar_fgsm,
             'cifar_fgsm_box': cifar_fgsm,
@@ -56,7 +56,7 @@ class PersistentResults():
             'training_vs_fgsm2_box': training_vs_fgsm2_box
         }
 
-        self.self.arrys2d = {'fashion_graph': fashion_graph,
+        self.arrys2d = {'fashion_graph': fashion_graph,
             'mnist_graph': mnist_graph,
             'cifar_graphs': cifar_graph
         }
@@ -66,8 +66,8 @@ class PersistentResults():
         with open('results', 'w+') as csvfile:
             if typein == 1 or typwin==True:
                 writer = csv.writer(csvfile)
-                for key in self.self.arrys:
-                    line = self.self.arrys[key].copy()
+                for key in self.arrys:
+                    line = self.arrys[key].copy()
                     try:
                         if len(line) == len(epsilon):
                             line.insert(0, key)
@@ -78,11 +78,11 @@ class PersistentResults():
                     except:
                         print(f'ERR: no {key}')
         if typein == 2 or typein == True:
-            for key in self.self.arrys:
-                len_dict = str(len(self.self.arrys[key]))
+            for key in self.arrys:
+                len_dict = str(len(self.arrys[key]))
                 null_li = ['null']*(len(epsilon)-2)
                 writer.writerow([key, len_dict]+null_li)
-                for j, eps in zip(self.self.arrys[key], epsilon):
+                for j, eps in zip(self.arrys[key], epsilon):
                     row_name = key+"_"+str(eps)
                     try:
                         if len(j) == len(epsilon):
@@ -131,7 +131,7 @@ class PersistentResults():
         corr = 0
         empty = 0
         incorr = 0
-        for key in self.self.arrys:
+        for key in self.arrys:
             print(f'{key}:', end=' ')
             if len(self.arrys[key]) == len(epsilon):
                 corr +=1
