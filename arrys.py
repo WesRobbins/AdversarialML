@@ -1,3 +1,4 @@
+import csv
 class PersistentResults():
     epsilon = [.001,.005, .01, .03, .05, .07, .1]
     # No Defense
@@ -184,13 +185,12 @@ class PersistentResults():
                             if count >= num:
                                 loop_on = False
                                 break
-                                if name == key:
-                                    loop_on = True
-                                    num = int(elems[0])
+                        if name == key:
+                            loop_on = True
+                            num = int(elems[0])
         self._update_arrs()
 
     def show_arrys(self, v=2):
-        print(self.arrys)
         corr = 0
         empty = 0
         incorr = 0
@@ -218,24 +218,29 @@ class PersistentResults():
                     unempty = True
                 elif len(i) != len(self.epsilon):
                     correct = False
-                    if correct:
-                        corr+=1
-                        if v == 2:
-                            print('Correct')
-                elif not unempty:
-                        empty+=1
-                        if v == 2:
-                            print('Empty')
-                else:
-                    incorr+=1
-                    if v == 2:
-                        print('Incorrect amount')
 
-                if verbose == 2:
-                    print()
-                print(f'Correct: {incorr}')
-                print(f'Empty: {empty}')
-                print(f'Incorrect amount: {incorr}')
+            if len(self.arrys2d[key]) == 0:
+                empty+=1
+                if v == 2:
+                    print('Empty')
+            elif correct:
+                corr+=1
+                if v == 2:
+                    print('Correct')
+            elif not unempty:
+                empty+=1
+                if v == 2:
+                    print('Empty')
+            else:
+                incorr+=1
+                if v == 2:
+                    print('Incorrect amount')
+
+        if v == 2:
+            print()
+        print(f'Correct: {corr}')
+        print(f'Empty: {empty}')
+        print(f'Incorrect amount: {incorr}')
 
     def replace(self,key):
         new_li = [key] + [str(i) for i in arry[key]]
@@ -256,17 +261,121 @@ class PersistentResults():
                 writer.writerow(new_li)
 
     def update_arr(self):
-        self.arrys = {'mnist_fgsm': mnist_fgsm,
-        'mnist_fgsm_box': mnist_fgsm_box,
-        'cifar_fgsm': cifar_fgsm,
-        'cifar_fgsm_box':cifar_fgsm,
+        self.arrys = {'mnist_fgsm': self.mnist_fgsm,
+        'mnist_fgsm_box': self.mnist_fgsm_box,
+        'cifar_fgsm': self.cifar_fgsm,
+        'cifar_fgsm_box': self.cifar_fgsm,
         'fashion_fgsm': fashion_fgsm,
-        'fashion_fgsm_box': fashion_fgsm_box,
-        'fgsm_acc': fgsm_acc,
-        'fgsm_acc_box': fgsm_acc_box,
-        'training_vs_fgsm': training_vs_fgsm,
-        'training_vs_fgsm_box': training_vs_fgsm_box,
-        'trainingR_vs_fgsm': training_vs_fgsm_box,
-        'training_vs_fgsm2': training_vs_fgsm2,
-        'training_vs_fgsm2_box': training_vs_fgsm2_box
-    }
+        'fashion_fgsm_box': self.fashion_fgsm_box,
+        'fgsm_acc': self.fgsm_acc,
+        'fgsm_acc_box': self.fgsm_acc_box,
+        'training_vs_fgsm': self.training_vs_fgsm,
+        'training_vs_fgsm_box': self.training_vs_fgsm_box,
+        'trainingR_vs_fgsm': self.training_vs_fgsm_box,
+        'training_vs_fgsm2': self.training_vs_fgsm2,
+        'training_vs_fgsm2_box': self.training_vs_fgsm2_box
+        }
+        self.arrys2d = {'fashion_graph': self.fashion_graph,
+        'mnist_graph': self.mnist_graph,
+        'cifar_graphs': self.cifar_graph
+        }
+
+    def diff(self, typein=True):
+        # No Defense
+        mnist_fgsm = []
+        mnist_fgsm_box = []
+        cifar_fgsm = []
+        cifar_fgsm_box = []
+        fashion_fgsm = []
+        fashion_fgsm_box = []
+
+        # Query Strength
+        fashion_graph = []
+        mnist_graph = []
+        cifar_graph = []
+
+        #### fasion ###
+        # fgsm vs adv-training
+        fgsm_acc = []
+        fgsm_acc_box = []
+
+        training_vs_fgsm = []
+        training_vs_fgsm_box = []
+        # fgsm vs adv-trainingR
+        trainingR_vs_fgsm = []
+        trainingR_vs_fgsm_box = []
+
+        #fgsm2 vs adv-training
+        training_vs_fgsm2 = []
+        training_vs_fgsm2_box = []
+
+        ### mnist ###
+        mnist_fgsm_acc = []
+        mnist_training_vs_fgsm = []
+        mnist_fgsm_acc_box = []
+        mnist_training_vs_fgsm_box = []
+
+        ### cifar ###
+        cifar_fgsm_acc = []
+        cifar_training_vs_fgsm = []
+        cifar_fgsm_acc_box = []
+        cifar_training_vs_fgsm_box = []
+
+        diff_arrys = {'mnist_fgsm': mnist_fgsm,
+            'mnist_fgsm_box': mnist_fgsm_box,
+            'cifar_fgsm': cifar_fgsm,
+            'cifar_fgsm_box':cifar_fgsm,
+            'fashion_fgsm': fashion_fgsm,
+            'fashion_fgsm_box': fashion_fgsm_box,
+            'fgsm_acc': fgsm_acc,
+            'fgsm_acc_box': fgsm_acc_box,
+            'training_vs_fgsm': training_vs_fgsm,
+            'training_vs_fgsm_box': training_vs_fgsm_box,
+            'trainingR_vs_fgsm': training_vs_fgsm_box,
+            'training_vs_fgsm2': training_vs_fgsm2,
+            'training_vs_fgsm2_box': training_vs_fgsm2_box
+        }
+
+        dif_arrys2d = {'fashion_graph': fashion_graph,
+            'mnist_graph': mnist_graph,
+            'cifar_graphs': cifar_graph
+        }
+
+        if typein == 1 or typein == True:
+            with open('results', 'r') as filein:
+                csv_reader = csv.reader(filein, delimiter=',')
+                for row in csv_reader:
+                    name = row.pop(0)
+                    elems = [float(i) for i in row]
+                    for key in diff_arrys:
+                        if key == name:
+                            if len(diff_arrys[key]) == 0:
+                                diff_arrys[key].extend(elems)
+
+        if typein == 2 or typein == True:
+            with open('results', 'r') as filein:
+                csv_reader = csv.reader(filein, delimiter=',')
+                for key in diff_arrys2d:
+                    loop_on = False
+                    count = 0
+                    num = 0
+                    for row in csv_reader:
+                        name = row.pop(0)
+                        elems = [float(i) for i in row]
+                        if loop_on:
+                            count+=1
+                            array_diff[key].append(elems)
+                            if count >= num:
+                                loop_on = False
+                                break
+                        if name == key:
+                            loop_on = True
+                            num = int(elems[0])
+        unequal = []
+        for key in self.arrys:
+            if self.arrys[key] != diff_arys[key]:
+                unequal.append(key)
+
+        print('The folling keys would be updated in case of a write:')
+        for i in unequal:
+            print(i)
