@@ -1,4 +1,5 @@
 import csv
+from termcolor import colored
 class PersistentResults():
     epsilon = [.001,.005, .01, .03, .05, .07, .1]
     # No Defense
@@ -44,14 +45,15 @@ class PersistentResults():
     arrys = {'mnist_fgsm': mnist_fgsm,
         'mnist_fgsm_box': mnist_fgsm_box,
         'cifar_fgsm': cifar_fgsm,
-        'cifar_fgsm_box':cifar_fgsm,
+        'cifar_fgsm_box':cifar_fgsm_box,
         'fashion_fgsm': fashion_fgsm,
         'fashion_fgsm_box': fashion_fgsm_box,
         'fgsm_acc': fgsm_acc,
         'fgsm_acc_box': fgsm_acc_box,
         'training_vs_fgsm': training_vs_fgsm,
         'training_vs_fgsm_box': training_vs_fgsm_box,
-        'trainingR_vs_fgsm': training_vs_fgsm_box,
+        'trainingR_vs_fgsm': trainingR_vs_fgsm,
+        'trainingR_vs_fgsm_box': trainingR_vs_fgsm_box,
         'training_vs_fgsm2': training_vs_fgsm2,
         'training_vs_fgsm2_box': training_vs_fgsm2_box
     }
@@ -134,26 +136,31 @@ class PersistentResults():
                         if len(line) == len(self.epsilon):
                             line.insert(0, key)
                             writer.writerow([str(r) for r in line])
-                            print(f'{key} was written')
+                            print(colored(f'{key} was written', 'green'))
                         else:
-                            print(f'ERR: {key} is wrong size')
+                            print(colored('ERR:', 'red'),end=' ')
+                            print(f'{key} is wrong size')
                     except:
                         print(f'ERR: no {key}')
-        if typein == 2 or typein == True:
-            for key in self.arrys:
-                len_dict = str(len(self.arrys[key]))
-                null_li = ['null']*(len(self.epsilon)-2)
-                writer.writerow([key, len_dict]+null_li)
-                for j, eps in zip(self.arrys[key], self.epsilon):
-                    row_name = key+"_"+str(eps)
-                    try:
-                        if len(j) == len(self.epsilon):
-                            writer.writerow([row_name] + [str(r) for r in j])
-                            print(f'{row_name} was written')
-                        else:
-                            print(f'{row_name} is wrong size')
-                    except:
-                        print(f'no {row_name}')
+            if typein == 2 or typein == True:
+                for key in self.arrys2d:
+                    len_dict = str(len(self.arrys2d[key]))
+                    null_li = ['null']*(len(self.epsilon)-2)
+                    if len(self.arrys2d[key]):
+                        writer.writerow([key, len_dict]+null_li)
+                    else:
+                        print(colored('ERR:', 'red'),end=' ')
+                        print(f'{key} is wrong size')
+                    for j, eps in zip(self.arrys2d[key], self.epsilon):
+                        row_name = key+"_"+str(eps)
+                        try:
+                            if len(j) == len(self.epsilon):
+                                writer.writerow([row_name] + [str(r) for r in j])
+                                print(f'{row_name} was written')
+                            else:
+                                print(f'{row_name} is wrong size')
+                        except:
+                            print(f'no {row_name}')
 
     def read_results(self, typein=True):
         if typein == 1 or typein == True:
@@ -161,7 +168,10 @@ class PersistentResults():
                 csv_reader = csv.reader(filein, delimiter=',')
                 for row in csv_reader:
                     name = row.pop(0)
-                    elems = [float(i) for i in row]
+                    try:
+                        elems = [float(i) for i in row]
+                    except:
+                        pass
                     for key in self.arrys:
                         if key == name:
                             if len(self.arrys[key]) == 0:
@@ -178,7 +188,10 @@ class PersistentResults():
                     full_list = []
                     for row in csv_reader:
                         name = row.pop(0)
-                        elems = [float(i) for i in row]
+                        try:
+                            elems = [float(i) for i in row]
+                        except:
+                            pass
                         if loop_on:
                             count+=1
                             self.arrys2d[key].append(elems)
@@ -188,7 +201,7 @@ class PersistentResults():
                         if name == key:
                             loop_on = True
                             num = int(elems[0])
-        self._update_arrs()
+        self.update_arrs()
 
     def show_arrys(self, v=2):
         corr = 0
@@ -199,15 +212,15 @@ class PersistentResults():
             if len(self.arrys[key]) == len(self.epsilon):
                 corr +=1
                 if v == 2:
-                    print('Correct')
+                    print(colored('Correct', 'green'))
             elif len(self.arrys[key]) == 0:
                 empty +=1
                 if v == 2:
-                    print('Empty')
+                    print(colored('Empty', 'blue'))
             else:
                 incorr+=1
                 if v == 2:
-                    print('Incorrect amount')
+                    print(colored('Incorrect amount','red'))
 
         for key in self.arrys2d:
             print(f'{key}: ', end='')
@@ -222,19 +235,19 @@ class PersistentResults():
             if len(self.arrys2d[key]) == 0:
                 empty+=1
                 if v == 2:
-                    print('Empty')
+                    print(colored('Empty', 'blue'))
             elif correct:
                 corr+=1
                 if v == 2:
-                    print('Correct')
+                    print(colored('Correct', 'green'))
             elif not unempty:
                 empty+=1
                 if v == 2:
-                    print('Empty')
+                    print(colored('Empty', 'blue'))
             else:
                 incorr+=1
                 if v == 2:
-                    print('Incorrect amount')
+                    print(colored('Incorrect amount','red'))
 
         if v == 2:
             print()
@@ -260,18 +273,19 @@ class PersistentResults():
                 writer = csv.writer(csvfile)
                 writer.writerow(new_li)
 
-    def update_arr(self):
+    def update_arrs(self):
         self.arrys = {'mnist_fgsm': self.mnist_fgsm,
         'mnist_fgsm_box': self.mnist_fgsm_box,
         'cifar_fgsm': self.cifar_fgsm,
-        'cifar_fgsm_box': self.cifar_fgsm,
-        'fashion_fgsm': fashion_fgsm,
+        'cifar_fgsm_box': self.cifar_fgsm_box,
+        'fashion_fgsm': self.fashion_fgsm,
         'fashion_fgsm_box': self.fashion_fgsm_box,
         'fgsm_acc': self.fgsm_acc,
         'fgsm_acc_box': self.fgsm_acc_box,
         'training_vs_fgsm': self.training_vs_fgsm,
         'training_vs_fgsm_box': self.training_vs_fgsm_box,
-        'trainingR_vs_fgsm': self.training_vs_fgsm_box,
+        'trainingR_vs_fgsm': self.training_vs_fgsm,
+        'trainingR_vs_fgsm_box': self.trainingR_vs_fgsm_box,
         'training_vs_fgsm2': self.training_vs_fgsm2,
         'training_vs_fgsm2_box': self.training_vs_fgsm2_box
         }
@@ -324,19 +338,20 @@ class PersistentResults():
         diff_arrys = {'mnist_fgsm': mnist_fgsm,
             'mnist_fgsm_box': mnist_fgsm_box,
             'cifar_fgsm': cifar_fgsm,
-            'cifar_fgsm_box':cifar_fgsm,
+            'cifar_fgsm_box':cifar_fgsm_box,
             'fashion_fgsm': fashion_fgsm,
             'fashion_fgsm_box': fashion_fgsm_box,
             'fgsm_acc': fgsm_acc,
             'fgsm_acc_box': fgsm_acc_box,
             'training_vs_fgsm': training_vs_fgsm,
             'training_vs_fgsm_box': training_vs_fgsm_box,
-            'trainingR_vs_fgsm': training_vs_fgsm_box,
+            'trainingR_vs_fgsm': trainingR_vs_fgsm,
+            'trainingR_vs_fgsm_box': trainingR_vs_fgsm_box,
             'training_vs_fgsm2': training_vs_fgsm2,
             'training_vs_fgsm2_box': training_vs_fgsm2_box
         }
 
-        dif_arrys2d = {'fashion_graph': fashion_graph,
+        diff_arrys2d = {'fashion_graph': fashion_graph,
             'mnist_graph': mnist_graph,
             'cifar_graphs': cifar_graph
         }
@@ -346,7 +361,10 @@ class PersistentResults():
                 csv_reader = csv.reader(filein, delimiter=',')
                 for row in csv_reader:
                     name = row.pop(0)
-                    elems = [float(i) for i in row]
+                    try:
+                        elems = [float(i) for i in row]
+                    except:
+                        pass
                     for key in diff_arrys:
                         if key == name:
                             if len(diff_arrys[key]) == 0:
@@ -361,10 +379,13 @@ class PersistentResults():
                     num = 0
                     for row in csv_reader:
                         name = row.pop(0)
-                        elems = [float(i) for i in row]
+                        try:
+                            elems = [float(i) for i in row]
+                        except:
+                            pass
                         if loop_on:
                             count+=1
-                            array_diff[key].append(elems)
+                            diff_arrys2d[key].append(elems)
                             if count >= num:
                                 loop_on = False
                                 break
@@ -373,9 +394,44 @@ class PersistentResults():
                             num = int(elems[0])
         unequal = []
         for key in self.arrys:
-            if self.arrys[key] != diff_arys[key]:
-                unequal.append(key)
+            fil = 'Empty'
+            mem = 'Empty'
+            if self.arrys[key] != diff_arrys[key]:
+                if len(diff_arrys[key]) != 0:
+                    fil = 'Filled'
+                if len(self.arrys[key]) != 0:
+                    mem = 'Filled'
+                unequal.append((key, fil, mem))
+        for key in self.arrys2d:
+            fil = 'Empty'
+            mem = 'Empty'
+            if self.arrys2d[key] != diff_arrys2d[key]:
+                if len(diff_arrys2d[key]) != 0:
+                    fil = 'Filled'
+                if len(self.arrys2d[key]) != 0:
+                    mem = 'Filled'
+                unequal.append((key, fil, mem))
+
 
         print('The folling keys would be updated in case of a write:')
+        print('------------------------------------------------------')
         for i in unequal:
-            print(i)
+            print(f'Key: {i[0]} - In memory: ', end="")
+            if i[2] == 'Empty':
+              col = 'blue'
+            else:
+              col = 'green'
+            print(colored(i[2], col), end=' ')
+            print('In File: ', end = '')
+            if i[1] == 'Empty':
+              col = 'blue'
+            else:
+              col = 'green'
+            print(colored(i[1], col))
+
+def show_keys(self):
+    print('1d Keys')
+    for key in self.arrys:
+        print(key)
+    for key in self.arrys2d:
+        print(key)
