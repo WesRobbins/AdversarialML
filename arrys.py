@@ -18,7 +18,7 @@ class PersistentResults:
 
 
     def write_all(self, typein=True):
-        with open('results', 'w+') as csvfile:
+        with open('results.csv', 'w+') as csvfile:
             if typein == 1 or typwin==True:
                 writer = csv.writer(csvfile)
                 for key in self.arrys:
@@ -61,7 +61,7 @@ class PersistentResults:
 
     def read_results(self, typein=True):
         if typein == 1 or typein == True:
-            with open('results', 'r') as filein:
+            with open('results.csv', 'r') as filein:
                 csv_reader = csv.reader(filein, delimiter=',')
                 for row in csv_reader:
                     name = row.pop(0)
@@ -73,10 +73,10 @@ class PersistentResults:
                         if key == name:
                             if len(self.arrys[key]) == 0:
                                 self.arrys[key].extend(elems)
-                                print(f'{key} populated')
+                                print(f'{key} loaded')
 
         if typein == 2 or typein == True:
-            with open('results', 'r') as filein:
+            with open('results.csv', 'r') as filein:
                 csv_reader = csv.reader(filein, delimiter=',')
                 for key in self.arrys2d:
                     loop_on = False
@@ -105,19 +105,29 @@ class PersistentResults:
         empty = 0
         incorr = 0
         for key in self.arrys:
-            print(f'{key}:', end=' ')
+            if v >= 2:
+                print(f'{key}:', end=' ')
             if len(self.arrys[key]) == len(self.epsilon):
                 corr +=1
                 if v == 2:
                     print(colored('Correct', 'green'))
+                elif v >= 3:
+                    print(colored('Correct', 'green'), end=' ')
             elif len(self.arrys[key]) == 0:
                 empty +=1
                 if v == 2:
                     print(colored('Empty', 'blue'))
+                elif v >= 3:
+                    print(colored('Empty', 'blue'), end=' ')
             else:
                 incorr+=1
                 if v == 2:
                     print(colored('Incorrect amount','red'))
+                elif v >= 3:
+                    print(colored('Incorrect amount', 'red'), end=' ')
+            if v >= 3:
+                print(f'- Len: {len(self.arrys[key])}')
+
 
         for key in self.arrys2d:
             print(f'{key}: ', end='')
@@ -133,18 +143,28 @@ class PersistentResults:
                 empty+=1
                 if v == 2:
                     print(colored('Empty', 'blue'))
+                elif v >= 3:
+                    print(colored('Empty', 'blue'), end=' ')
             elif correct:
                 corr+=1
                 if v == 2:
                     print(colored('Correct', 'green'))
+                elif v >= 3:
+                    print(colored('Correct', 'green'), end=' ')
             elif not unempty:
                 empty+=1
                 if v == 2:
                     print(colored('Empty', 'blue'))
+                elif v >= 3:
+                    print(colored('Empty', 'blue'), end=' ')
             else:
                 incorr+=1
                 if v == 2:
                     print(colored('Incorrect amount','red'))
+                elif v >= 3:
+                    print(colored('Incorrect amount', 'red'), end=' ')
+            if v >= 3:
+                print(f'- Len: {len(self.arrys[key]) x len(self.arrys[key][0]}')
 
         if v == 2:
             print()
@@ -154,7 +174,7 @@ class PersistentResults:
 
     def replace(self,key):
         new_li = [key] + [str(i) for i in arry[key]]
-        with open('results', 'r') as input_file, open('new_file', 'w') as output_file:
+        with open('results.csv', 'r') as input_file, open('new_file', 'w') as output_file:
             for line in input_file:
                 if line[0] == key:
                     output_file.write(new_li)
@@ -182,7 +202,7 @@ class PersistentResults:
 
 
         if typein == 1 or typein == True:
-            with open('results', 'r') as filein:
+            with open('results.csv', 'r') as filein:
                 csv_reader = csv.reader(filein, delimiter=',')
                 for row in csv_reader:
                     name = row.pop(0)
@@ -196,7 +216,7 @@ class PersistentResults:
                                 diff_arrys[key].extend(elems)
 
         if typein == 2 or typein == True:
-            with open('results', 'r') as filein:
+            with open('results.csv', 'r') as filein:
                 csv_reader = csv.reader(filein, delimiter=',')
                 for key in diff_arrys2d:
                     loop_on = False
@@ -275,7 +295,7 @@ def check_key(self, key_in):
 def read_specific(self, li):
     for key in li:
         found = False
-        with open('results', 'r') as filein:
+        with open('results.csv', 'r') as filein:
             csv_reader = csv.reader(filein, delimiter=',')
             for row in csv_reader:
                 name = row.pop(0)
@@ -286,7 +306,7 @@ def read_specific(self, li):
                 if key == name:
                     self.arrys[key].clear()
                     self.arrys[key].extend(elems)
-                    print(f'{key} populated')
+                    print(f'{key} loaded')
                     found = True
         if not found:
             print(colored('Err:', 'red'),end=' ')
