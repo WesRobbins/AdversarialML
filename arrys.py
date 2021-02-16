@@ -200,7 +200,7 @@ class PersistentResults():
                                 break
                         if name == key:
                             loop_on = True
-                            num = int(elems[0])
+                            num = int(row[0])
         self.update_arrs()
 
     def show_arrys(self, v=2):
@@ -391,7 +391,7 @@ class PersistentResults():
                                 break
                         if name == key:
                             loop_on = True
-                            num = int(elems[0])
+                            num = int(row[0])
         unequal = []
         for key in self.arrys:
             fil = 'Empty'
@@ -465,4 +465,4 @@ def read_specific(self, li):
                     found = True
         if not found:
             print(colored('Err:', 'red'),end=' ')
-            print(f'{key} not found)
+            print(f'{key} not found')
