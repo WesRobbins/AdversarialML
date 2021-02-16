@@ -284,7 +284,7 @@ class PersistentResults():
         'fgsm_acc_box': self.fgsm_acc_box,
         'training_vs_fgsm': self.training_vs_fgsm,
         'training_vs_fgsm_box': self.training_vs_fgsm_box,
-        'trainingR_vs_fgsm': self.training_vs_fgsm,
+        'trainingR_vs_fgsm': self.trainingR_vs_fgsm,
         'trainingR_vs_fgsm_box': self.trainingR_vs_fgsm_box,
         'training_vs_fgsm2': self.training_vs_fgsm2,
         'training_vs_fgsm2_box': self.training_vs_fgsm2_box
@@ -435,3 +435,34 @@ def show_keys(self):
         print(key)
     for key in self.arrys2d:
         print(key)
+
+def check_key(self, key_in):
+    for key in self.arrys:
+        if key_in == key:
+            print(f'{key} exists in arrys')
+            return
+    for key in self.arrys2d:
+        if key_in == key:
+            print(f'{key} exists in arrys2d')
+            return
+    print('key not found')
+
+def read_specific(self, li):
+    for key in li:
+        found = False
+        with open('results', 'r') as filein:
+            csv_reader = csv.reader(filein, delimiter=',')
+            for row in csv_reader:
+                name = row.pop(0)
+                try:
+                    elems = [float(i) for i in row]
+                except:
+                    pass
+                if key == name:
+                    self.arrys[key].clear()
+                    self.arrys[key].extend(elems)
+                    print(f'{key} populated')
+                    found = True
+        if not found:
+            print(colored('Err:', 'red'),end=' ')
+            print(f'{key} not found)
