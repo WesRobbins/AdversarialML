@@ -164,7 +164,7 @@ class PersistentResults:
                 elif v >= 3:
                     print(colored('Incorrect amount', 'red'), end=' ')
             if v >= 3:
-                print(f'- Len: {len(self.arrys[key]) x len(self.arrys[key][0]}')
+                print(f'- Len: {len(self.arrys[key])} x {len(self.arrys[key])[0]}')
 
         if v == 2:
             print()
