@@ -1,19 +1,130 @@
 import csv
 from termcolor import colored
-class PersistentResults:
+class PersistentResults():
     epsilon = [.001,.005, .01, .03, .05, .07, .1]
     QS = [100, 500, 1000, 3000, 5000, 15000, 30000, None]
+    # No Defense
+    mnist_fgsm = []
+    mnist_fgsm_box = []
+    cifar_fgsm = []
+    cifar_fgsm_box = []
+    fashion_fgsm = []
+    fashion_fgsm_box = []
 
+    # Query Strength
+    fashion_graph = []
+    mnist_graph = []
+    cifar_graph = []
 
-    arrys = {}
+    #### fasion ###
+    # fgsm vs adv-training
+    fgsm_acc = []
+    fgsm_acc_box = []
 
-    arrys2d = {}
+    training_vs_fgsm = []
+    training_vs_fgsm_box = []
+    # fgsm vs adv-trainingR
+    trainingR_vs_fgsm = []
+    trainingR_vs_fgsm_box = []
 
-    def __init(self, arrys_in, arrys2d_in):
-        for key in self.arrys_in:
-            self.arrys[key] = []
-        for key in self.arrys2d_in:
-            self.arrys2d[key] = []
+    #fgsm2 vs adv-training
+    training_vs_fgsm2 = []
+    training_vs_fgsm2_box = []
+
+    ### mnist ###
+    mnist_fgsm_acc = []
+    mnist_training_vs_fgsm = []
+    mnist_fgsm_acc_box = []
+    mnist_training_vs_fgsm_box = []
+
+    ### cifar ###
+    cifar_fgsm_acc = []
+    cifar_training_vs_fgsm = []
+    cifar_fgsm_acc_box = []
+    cifar_training_vs_fgsm_box = []
+
+    arrys = {'mnist_fgsm': mnist_fgsm,
+        'mnist_fgsm_box': mnist_fgsm_box,
+        'cifar_fgsm': cifar_fgsm,
+        'cifar_fgsm_box':cifar_fgsm_box,
+        'fashion_fgsm': fashion_fgsm,
+        'fashion_fgsm_box': fashion_fgsm_box,
+        'fgsm_acc': fgsm_acc,
+        'fgsm_acc_box': fgsm_acc_box,
+        'training_vs_fgsm': training_vs_fgsm,
+        'training_vs_fgsm_box': training_vs_fgsm_box,
+        'trainingR_vs_fgsm': trainingR_vs_fgsm,
+        'trainingR_vs_fgsm_box': trainingR_vs_fgsm_box,
+        'training_vs_fgsm2': training_vs_fgsm2,
+        'training_vs_fgsm2_box': training_vs_fgsm2_box
+    }
+
+    arrys2d = {'fashion_graph': fashion_graph,
+        'mnist_graph': mnist_graph,
+        'cifar_graphs': cifar_graph
+    }
+
+    def __init(self):
+        pass
+        # # No Defense1
+        # mnist_fgsm = []
+        # mnist_fgsm_box = []
+        # cifar_fgsm = []
+        # cifar_fgsm_box = []
+        # fashion_fgsm = []
+        # fashion_fgsm_box = []
+        #
+        # # Query Strength
+        # fashion_graph = []
+        # mnist_graph = []
+        # cifar_graph = []
+        #
+        # #### fasion ###
+        # # fgsm vs adv-training
+        # fgsm_acc = []
+        # fgsm_acc_box = []
+        #
+        # training_vs_fgsm = []
+        # training_vs_fgsm_box = []
+        # # fgsm vs adv-trainingR
+        # trainingR_vs_fgsm = []
+        # trainingR_vs_fgsm_box = []
+        #
+        # #fgsm2 vs adv-training
+        # training_vs_fgsm2 = []
+        # training_vs_fgsm2_box = []
+        #
+        # ### mnist ###
+        # mnist_fgsm_acc = []
+        # mnist_training_vs_fgsm = []
+        # mnist_fgsm_acc_box = []
+        # mnist_training_vs_fgsm_box = []
+        #
+        # ### cifar ###
+        # cifar_fgsm_acc = []
+        # cifar_training_vs_fgsm = []
+        # cifar_fgsm_acc_box = []
+        # cifar_training_vs_fgsm_box = []
+        #
+        # self.arrys = {'mnist_fgsm': mnist_fgsm,
+        #     'mnist_fgsm_box': mnist_fgsm_box,
+        #     'cifar_fgsm': cifar_fgsm,
+        #     'cifar_fgsm_box':cifar_fgsm,
+        #     'fashion_fgsm': fashion_fgsm,
+        #     'fashion_fgsm_box': fashion_fgsm_box,
+        #     'fgsm_acc': fgsm_acc,
+        #     'fgsm_acc_box': fgsm_acc_box,
+        #     'training_vs_fgsm': training_vs_fgsm,
+        #     'training_vs_fgsm_box': training_vs_fgsm_box,
+        #     'trainingR_vs_fgsm': training_vs_fgsm_box,
+        #     'training_vs_fgsm2': training_vs_fgsm2,
+        #     'training_vs_fgsm2_box': training_vs_fgsm2_box
+        # }
+        #
+        # self.arrys2d = {'fashion_graph': fashion_graph,
+        #     'mnist_graph': mnist_graph,
+        #     'cifar_graphs': cifar_graph
+        # }
 
 
     def write_all(self, typein=True):
@@ -164,16 +275,88 @@ class PersistentResults:
                 writer = csv.writer(csvfile)
                 writer.writerow(new_li)
 
+    def update_arrs(self):
+        self.arrys = {'mnist_fgsm': self.mnist_fgsm,
+        'mnist_fgsm_box': self.mnist_fgsm_box,
+        'cifar_fgsm': self.cifar_fgsm,
+        'cifar_fgsm_box': self.cifar_fgsm_box,
+        'fashion_fgsm': self.fashion_fgsm,
+        'fashion_fgsm_box': self.fashion_fgsm_box,
+        'fgsm_acc': self.fgsm_acc,
+        'fgsm_acc_box': self.fgsm_acc_box,
+        'training_vs_fgsm': self.training_vs_fgsm,
+        'training_vs_fgsm_box': self.training_vs_fgsm_box,
+        'trainingR_vs_fgsm': self.trainingR_vs_fgsm,
+        'trainingR_vs_fgsm_box': self.trainingR_vs_fgsm_box,
+        'training_vs_fgsm2': self.training_vs_fgsm2,
+        'training_vs_fgsm2_box': self.training_vs_fgsm2_box
+        }
+        self.arrys2d = {'fashion_graph': self.fashion_graph,
+        'mnist_graph': self.mnist_graph,
+        'cifar_graphs': self.cifar_graph
+        }
 
     def diff(self, typein=True):
+        # No Defense
+        mnist_fgsm = []
+        mnist_fgsm_box = []
+        cifar_fgsm = []
+        cifar_fgsm_box = []
+        fashion_fgsm = []
+        fashion_fgsm_box = []
 
-        diff_arrys = {}
-        diff_arrys2d = {}
-        for key in self.arrys:
-            diff_arrys[key] = []
-        for key in self.arrys2d:
-            diff_arrys2d[key] = []
+        # Query Strength
+        fashion_graph = []
+        mnist_graph = []
+        cifar_graph = []
 
+        #### fasion ###
+        # fgsm vs adv-training
+        fgsm_acc = []
+        fgsm_acc_box = []
+
+        training_vs_fgsm = []
+        training_vs_fgsm_box = []
+        # fgsm vs adv-trainingR
+        trainingR_vs_fgsm = []
+        trainingR_vs_fgsm_box = []
+
+        #fgsm2 vs adv-training
+        training_vs_fgsm2 = []
+        training_vs_fgsm2_box = []
+
+        ### mnist ###
+        mnist_fgsm_acc = []
+        mnist_training_vs_fgsm = []
+        mnist_fgsm_acc_box = []
+        mnist_training_vs_fgsm_box = []
+
+        ### cifar ###
+        cifar_fgsm_acc = []
+        cifar_training_vs_fgsm = []
+        cifar_fgsm_acc_box = []
+        cifar_training_vs_fgsm_box = []
+
+        diff_arrys = {'mnist_fgsm': mnist_fgsm,
+            'mnist_fgsm_box': mnist_fgsm_box,
+            'cifar_fgsm': cifar_fgsm,
+            'cifar_fgsm_box':cifar_fgsm_box,
+            'fashion_fgsm': fashion_fgsm,
+            'fashion_fgsm_box': fashion_fgsm_box,
+            'fgsm_acc': fgsm_acc,
+            'fgsm_acc_box': fgsm_acc_box,
+            'training_vs_fgsm': training_vs_fgsm,
+            'training_vs_fgsm_box': training_vs_fgsm_box,
+            'trainingR_vs_fgsm': trainingR_vs_fgsm,
+            'trainingR_vs_fgsm_box': trainingR_vs_fgsm_box,
+            'training_vs_fgsm2': training_vs_fgsm2,
+            'training_vs_fgsm2_box': training_vs_fgsm2_box
+        }
+
+        diff_arrys2d = {'fashion_graph': fashion_graph,
+            'mnist_graph': mnist_graph,
+            'cifar_graphs': cifar_graph
+        }
 
         if typein == 1 or typein == True:
             with open('results', 'r') as filein:
