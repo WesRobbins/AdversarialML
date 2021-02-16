@@ -2,6 +2,7 @@ import csv
 from termcolor import colored
 class PersistentResults():
     epsilon = [.001,.005, .01, .03, .05, .07, .1]
+    QS = [100, 500, 1000, 3000, 5000, 15000, 30000, None]
     # No Defense
     mnist_fgsm = []
     mnist_fgsm_box = []
@@ -151,8 +152,8 @@ class PersistentResults():
                     else:
                         print(colored('ERR:', 'red'),end=' ')
                         print(f'{key} is wrong size')
-                    for j, eps in zip(self.arrys2d[key], self.epsilon):
-                        row_name = key+"_"+str(eps)
+                    for j, stren in zip(self.arrys2d[key], self.QS):
+                        row_name = key+"_QS"+str(stren)
                         try:
                             if len(j) == len(self.epsilon):
                                 writer.writerow([row_name] + [str(r) for r in j])
@@ -199,6 +200,7 @@ class PersistentResults():
                                 loop_on = False
                                 break
                         if name == key:
+                            self.arrys2d[key].clear()
                             loop_on = True
                             num = int(row[0])
         self.update_arrs()
@@ -466,3 +468,10 @@ def read_specific(self, li):
         if not found:
             print(colored('Err:', 'red'),end=' ')
             print(f'{key} not found')
+
+def clear_mem(self):
+    for key in self.arrys:
+        self.arrys[key].clear()
+    for key in self.arrys2d:
+        self.arrys2d[key].clear()
+    self.update_arrs()
