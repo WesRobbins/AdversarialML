@@ -92,7 +92,6 @@ class PersistentResults:
                             self.arrys2d[key].clear()
                             loop_on = True
                             num = int(row[0])
-        self.update_arrs()
 
     def show_arrys(self, v=2):
         corr = 0
@@ -291,4 +290,3 @@ def clear_mem(self):
         self.arrys[key].clear()
     for key in self.arrys2d:
         self.arrys2d[key].clear()
-    self.update_arrs()
