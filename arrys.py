@@ -3,16 +3,17 @@ from termcolor import colored
 class PersistentResults:
     epsilon = [.001,.005, .01, .03, .05, .07, .1]
     QS = [100, 500, 1000, 3000, 5000, 15000, 30000, None]
+    adv_train_iterations = [1,2,3,5,7,10,13]
 
 
     arrys = {}
 
     arrys2d = {}
 
-    def __init(self, arrys_in, arrys2d_in):
-        for key in self.arrys_in:
+    def __init__(self, arrys_in, arrys2d_in):
+        for key in arrys_in:
             self.arrys[key] = []
-        for key in self.arrys2d_in:
+        for key in arrys2d_in:
             self.arrys2d[key] = []
 
 
@@ -41,8 +42,14 @@ class PersistentResults:
                     else:
                         print(colored('ERR:', 'red'),end=' ')
                         print(f'{key} is wrong size')
-                    for j, stren in zip(self.arrys2d[key], self.QS):
-                        row_name = key+"_QS"+str(stren)
+                    if key[-2:] == 'qs':
+                        iter = self.QS
+                        tag = 'QS'
+                    elif key[-2:] == 'it':
+                        iter = self.adv_train_iterations
+                        tag = 'iter'
+                    for j, stren in zip(self.arrys2d[key], iter):
+                        row_name = key+"_"+tag+str(stren)
                         try:
                             if len(j) == len(self.epsilon):
                                 writer.writerow([row_name] + [str(r) for r in j])
