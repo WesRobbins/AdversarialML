@@ -24,7 +24,7 @@ class PersistentResults:
                 for key in self.arrys:
                     line = self.arrys[key].copy()
                     try:
-                        if len(line) == len(self.epsilon):
+                        if len(line) >= len(self.epsilon):
                             line.insert(0, key)
                             writer.writerow([str(r) for r in line])
                             print(colored(f'{key} was written', 'green'))
